@@ -17,6 +17,22 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
+
+    @Override
+    public UserDTO getUserByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        UserDTO userDTO = userRepository.findDTOById(id);
+        if (userDTO == null) {
+            throw new RuntimeException("User not found with ID: " + id);
+        }
+        return userDTO;
+    }
+
+
     @Override
     public UserDTO addUser(UserDTO userDTO) {
         log.debug("Adding a user with name: {}", userDTO.getName());
@@ -44,12 +60,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void eraseUser(UserDTO userDTO) {
-        log.debug("Deleting user with name: {}", userDTO.getName());
-
-        userRepository.deleteById(Long.valueOf(userDTO.getName()));
-
-        log.info("User deleted with name: {}", userDTO.getName());
+    public void deleteUserById(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found with ID: " + id);
+        }
+        userRepository.deleteById(id);
     }
 
     @Override

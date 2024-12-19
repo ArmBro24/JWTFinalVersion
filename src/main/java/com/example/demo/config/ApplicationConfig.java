@@ -24,39 +24,6 @@ public class ApplicationConfig {
 
     private final UserRepository userRepository;
 
-    /*@Bean
-    public UserDetailsService userDetailsService(){
-        return username -> {
-            if (userRepository.existsByName(u) {
-                User user = userRepository.findAll().stream()
-                        .filter(u -> u.getName().equals(username))
-                        .findFirst()
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-                return user;
-            }
-            else {
-                throw new UsernameNotFoundException("User not found");
-            }
-        };
-    }*/
-
-    /*@Bean
-    public UserDetailsService userDetailsService() {
-        return name -> {
-            UserDTO userDTO = this.userRepository.findByName(name);
-            if (userDTO != null) {
-                return new org.springframework.security.core.userdetails.User(
-                        userDTO.getName(),
-                        userDTO.getPassword(),
-                        new ArrayList<>()
-                );
-            } else {
-                throw new UsernameNotFoundException("User not found");
-            }
-        };
-    }*/
-
     @Bean
     public UserDetailsService userDetailsService() {
         return name -> {
